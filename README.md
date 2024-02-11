@@ -8,5 +8,5 @@ https://www.datacamp.com/cheat-sheet/tidyverse-cheat-sheet-for-beginners
 
 https://ac812.github.io/reproducibility-training/rmarkdown.html
 
-
+https://ac812.github.io/reproducibility-training/git.html
 
