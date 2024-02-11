@@ -6,4 +6,7 @@ Teaching R markdown and git in Cambridge
 
 https://www.datacamp.com/cheat-sheet/tidyverse-cheat-sheet-for-beginners
 
+https://ac812.github.io/reproducibility-training/rmarkdown.html
+
+
 
