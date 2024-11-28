@@ -1,0 +1,195 @@
+---
+title: "basics_rmarkdown"
+output:
+  html_document:
+    df_print: paged
+  word_document: default
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Basics
+
+### Heading 3
+
+# Heading 1
+
+Inline text I like to __ramble__ about `R` \
+
+**More than 70% of researchers have tried and failed to reproduce another scientist's experiments** \
+
+*Nature*
+
+Please see our latest methods [link](#methods-section).
+
+## Data and Methods {#methods-section}
+
+We have used a very fancy AI model. 
+
+## Software
+
+All our resources are available here:
+
+[link](https://cambiotraining.github.io/reproducibility-training)
+
+I like to reference myself [^1]
+
+[^1]: This will be a minor footnote in history.
+
+## Lists
+
+1. Item 1
+2. Item 2
+    a. Subitem
+    b. Subitem 2
+    
+* Data
+* Methods
+* Results
+    * Main results
+    * Secondary results
+    
+### Checklists
+- [ ] not written ethics section
+- [x] outline done
+
+## Pretty Plots
+
+Image made using ChatGPT. Prompt: _please generate a witty image just showing I love R and R markdown_.
+
+
+
+![Image](images/R_image.png)
+
+## Tables
+
+| Parameters     | Value  |
+| ---------------| -------|
+| $\sigma$          |  0.1   |
+| alpha          |  0.03  |
+
+
+## Block
+
+Here is a block of code
+
+> R code here
+
+> x = 3
+
+Code blocks
+
+```
+x = 3
+cat("Hello World")
+print(x)
+```
+
+## Load data
+
+```{r}
+
+download.file(url="https://raw.githubusercontent.com/cambiotraining/reproducibility-training/master/data/gapminder_data.csv", destfile="data/gapminder_data.csv")
+
+```
+```{r load-data, echo=FALSE}
+
+library(tidyverse)
+library(rmarkdown)
+library(kableExtra)
+library(ggpubr)
+
+```
+
+```{r load-data2, include=FALSE}
+
+# read data
+pop_data <- read_csv("data/gapminder_data.csv")
+```
+
+```{r load-data3, message=FALSE}
+
+# read data
+pop_data <- read_csv("data/gapminder_data.csv")
+```
+
+
+```{r data-munging}
+
+selected_table <- pop_data %>%
+        filter(continent == "Europe" & year == 2007) %>%
+        select(-continent, -year) %>%
+        arrange(desc(lifeExp))
+        
+
+```
+
+```{r data-munging2, message=FALSE}
+
+selected_table <- pop_data %>%
+        filter(continent == "Europe" & year == 2007) %>%
+        select(-continent, -year) %>%
+        arrange(desc(lifeExp))
+        
+
+```
+
+## Nice table
+
+```{r, echo=FALSE}
+selected_table %>%
+  kableExtra::kbl()
+```
+
+## Paged table
+
+```{r paged-table}
+rmarkdown::paged_table(selected_table)
+  
+```
+
+## Plotting
+
+```{r}
+
+new_table <- pop_data %>%
+                filter(continent == "Europe") 
+
+ggplot(data = new_table, mapping = aes(x = year, y = lifeExp)) + 
+  geom_violin()
+
+```
+
+```{r}
+
+new_table <- pop_data %>%
+                filter(continent == "Europe") %>%
+                mutate(year = as.factor(year)) 
+
+ggplot(data = new_table, mapping = aes(x = year, y = lifeExp)) + 
+  geom_violin()
+
+```
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+setwd("~/soumya_cam_mac/teaching/teaching_rmarkdown_git")
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
