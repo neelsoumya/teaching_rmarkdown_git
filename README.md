@@ -10,3 +10,12 @@ https://ac812.github.io/reproducibility-training/rmarkdown.html
 
 https://ac812.github.io/reproducibility-training/git.html
 
+https://github.com/neelsoumya/teaching_reproducible_science_R
+
+## Contact
+
+Soumya Banerjee
+
+sb2333@cam.ac.uk
+
+
