@@ -1,0 +1,165 @@
+---
+title: "my_very_bad_intro"
+author: "Soumya Banerjee"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+  word_document:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Abstract
+
+Some text here
+
+I just love to write and talk (blah blah blah ...)
+
+R is awesome
+
+## Background
+
+SOme background. What I thought of has been done, but I did it anyway.
+
+
+### More sections
+
+text here
+
+**in bold**
+
+My paper has a Methods Section. Please see here [link](#section-methods)
+
+
+# Data and Methods {#section-methods}
+
+# Lists
+
+1. My paper has an neural network.
+2. It has 3 parameters
+3. I love it.
+     a. code
+     b. data
+     c. everything is available
+
+
+# finally some code
+
+```{r data-loading-section, echo=FALSE }
+# headings 1
+cat("Hello World")
+z = 1 +3
+z = z/2
+cat(z)
+
+plot(pressure)
+
+
+download.file(url="https://raw.githubusercontent.com/cambiotraining/reproducibility-training/master/data/gapminder_data.csv", destfile="data/gapminder_data.csv")
+```
+
+My paper has a section [text](#data-munging)
+
+```{r data-munging, echo=FALSE}
+z = 1 + 2
+z/3
+
+# load tidyverse
+library(tidyverse)
+library(rmarkdown)
+library(kableExtra)
+library(ggpubr)
+#install.packages('tidyverse')
+#install.packages('rmarkdown')
+#install.packages('kableExtra')
+#install.packages('ggpubr')
+
+pop_data <- readr::read_csv(file = "data/gapminder_data.csv")
+
+
+```
+
+## Plotting data and data munging 
+
+```{r }
+
+pop_data
+z
+plot(pop_data$lifeExp, pop_data$gdpPercap)
+
+
+
+```
+
+## Data filtering
+
+```{r}
+ # select only countries in Europe
+pop_data$continent == "Europe"
+
+pop_data[1,2]
+pop_data[1,]
+pop_data[10,]
+
+selected_frame <- pop_data[pop_data$continent == "Europe" & pop_data$year == 2007,]
+
+
+
+```
+
+## Dynamic Tables in R
+
+```{r}
+head(selected_frame)
+
+selected_frame %>%
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped","hover"))
+
+
+
+```
+## Ggplot in R
+```{r}
+
+#selected_frame$year = factor(selected_frame$year)
+
+new_table <- pop_data %>%
+                filter(continent == "Europe") %>%
+                mutate(year = as.factor(year)) 
+
+ggplot(data = new_table, mapping = aes(x = year, y = lifeExp)) + 
+  geom_violin()
+
+#ggplot(data = selected_frame, mapping = aes(x = year, y = lifeExp)) + 
+ # geom_violin()
+
+
+
+```
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
