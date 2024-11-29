@@ -1,6 +1,7 @@
 ---
 title: "basics_rmarkdown"
 output:
+  
   html_document:
     df_print: paged
   word_document: default
