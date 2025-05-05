@@ -1,0 +1,68 @@
+---
+title: "Drake Equation Sampling and Plotting"
+author: "Your Name"
+date: "2025-05-03"
+output: html_document
+---
+
+## Introduction
+
+The Drake equation is a probabilistic argument used to estimate the number of active, communicative extraterrestrial civilizations in our galaxy. The equation is usually written as:
+
+$$ N = R_* \times f_p \times n_e \times f_l \times f_i \times f_c \times L $$
+
+Where:
+- \( R_* \): Average rate of star formation per year in our galaxy.
+- \( f_p \): Fraction of those stars that have planetary systems.
+- \( n_e \): Number of planets that could potentially support life per star with planets.
+- \( f_l \): Fraction of planets that actually develop life.
+- \( f_i \): Fraction of planets with life that develop intelligent life.
+- \( f_c \): Fraction of intelligent civilizations that develop detectable communication.
+- \( L \): Length of time such civilizations release detectable signals.
+
+In this example, we will draw random samples for each parameter and compute \( N \), then plot the distribution of \( N \).
+
+## R Code
+
+```{r setup, include=FALSE}
+# Set up the environment
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Load necessary libraries
+library(ggplot2)
+```
+
+```{r}
+# Define ranges or means for each parameter and draw random samples
+set.seed(123)  # For reproducibility
+
+# Number of samples
+n_samples <- 10000
+
+# Parameters: Generate random samples (uniform or normal distributions, as appropriate)
+R_star <- runif(n_samples, 1, 10)    # Star formation rate (e.g., 1-10 stars/year)
+f_p <- runif(n_samples, 0.1, 0.5)    # Fraction of stars with planets
+n_e <- runif(n_samples, 0.1, 2)      # Number of habitable planets per star with planets
+f_l <- runif(n_samples, 0.01, 1)     # Fraction of habitable planets with life
+f_i <- runif(n_samples, 0.01, 1)     # Fraction of planets with intelligent life
+f_c <- runif(n_samples, 0.01, 1)     # Fraction of civilizations that communicate
+L <- runif(n_samples, 100, 10000)    # Longevity of civilizations (in years)
+
+# Compute N (Drake equation results)
+N <- R_star * f_p * n_e * f_l * f_i * f_c * L
+```
+
+```{r, echo=FALSE}
+# Plot the distribution of N
+ggplot(data.frame(N = N), aes(x = N)) +
+  geom_histogram(bins = 50, fill = "blue", color = "black", alpha = 0.7) +
+  labs(
+    title = "Distribution of Drake Equation Results",
+    x = "Number of Communicative Civilizations (N)",
+    y = "Frequency"
+  ) +
+  theme_minimal()
+
+```
